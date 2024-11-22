@@ -1,61 +1,59 @@
-# topic：基于深度学习因果推断的资产定价分析
+# Topic: Asset Pricing Analysis Based on Deep Learning Causal Inference
 
-概述：
+## Overview
 
-#### 1.基于错误定价的股市资产推断原理
+### 1. Stock Market Asset Inference Principles Based on Mispricing
 
-这部分参考这个文献：Bartram S M, Grinblatt M. Agnostic fundamental analysis works[J]. Journal of Financial Economics, 2018, 128(1): 125-147. 
+This section refers to the following paper:
+ Bartram S. M., Grinblatt M. *Agnostic fundamental analysis works*. Journal of Financial Economics, 2018, 128(1): 125-147.
 
-根据股票的基本面指标构建错误定价变量->列出错误定价的公式(见上文献，pdf的公式是错的）->讲一下选择它的原因（文献）
+- Construct mispricing variables using fundamental indicators of stocks.
+- Present the formula for mispricing (as described in the paper, note that the PDF contains errors in the formula).
+- Explain the rationale for choosing this approach (as outlined in the literature).
 
-**表1 变量说明** pdf
+**Table 1: Variable Description** (from the PDF)
 
-**表2 全部变量的描述性统计** 
+**Table 2: Descriptive Statistics of All Variables**
 
-#### 2.基于Adaboost算法的错误定价变量构建
+------
 
-原理：利用Adaboost算法，根据同一日期的所有股票的基本面因子，分组预测每个股票的错误定价变量
+### 2. Mispricing Variable Construction Using the Adaboost Algorithm
 
-预测后根据日期分组，对于每个日期进行选股投资：股票按照mispricing的值从大到小排序，比较两种投资策略：Q5:买入前20%的股票，x月卖出；Q1:买入后20%股票，x月后卖出，对比收益率
+**Principle:**
 
-结果：Q5的平均收益率基本高于Q1，且随x的推移，差距愈发明显，证明了错误定价变量在资产定价上的作用以及延迟生效的特性。
+- Use the Adaboost algorithm and fundamental factors of all stocks on the same date to group and predict the mispricing variable for each stock.
+- After prediction, group by date. For each date, conduct stock selection and investment:
+  - Rank stocks by their mispricing values in descending order.
+  - Compare two investment strategies:
+    - **Q5**: Buy the top 20% of stocks and sell them after *x* months.
+    - **Q1**: Buy the bottom 20% of stocks and sell them after *x* months.
+- Compare the returns of Q5 and Q1.
 
-折线图：
+**Results:**
 
-x=1:
+- The average returns of Q5 are generally higher than those of Q1.
+- The gap between Q5 and Q1 widens over time, demonstrating the relevance of mispricing variables in asset pricing and their delayed effectiveness.
 
-![image-20241122114809748](C:\Users\taosuozi\AppData\Roaming\Typora\typora-user-images\image-20241122114809748.png)
+**Table 3: Investment Portfolio Performance Constructed Using Mispricing M**
 
-x=6:
+------
 
-![image-20241122114859541](C:\Users\taosuozi\AppData\Roaming\Typora\typora-user-images\image-20241122114859541.png)
+### 3. Causal Inference Analysis of the Mispricing Variable (M)
 
-x=12:
+This section primarily refers to the following sections in the PDF:
 
-![image-20241122114833846](C:\Users\taosuozi\AppData\Roaming\Typora\typora-user-images\image-20241122114833846.png)
+- **1. Basic Model of Causal Diagrams**
+- **2. Variational Autoencoder (VAE) Deep Learning Model**
+- **4.3 Causal Inference Between Mispricing and Market Capitalization Variables: ITE (Individual Treatment Effect)**
 
-**表3 错误定价M构建的投资组合表现**
+**Table 4: Individual Treatment Effect (ITE) of Mispricing Variable M and Market Capitalization Variable**
 
-<img src="C:\Users\taosuozi\AppData\Roaming\Typora\typora-user-images\image-20241122114107078.png" alt="image-20241122114107078" style="zoom:33%;" />
+| **Variable**                          | **ITE**                | **T-statistic** | **P-value** |
+| ------------------------------------- | ---------------------- | --------------- | ----------- |
+| Mispricing Variable M                 | 735671877861023        | 33.9656         | 0.0000      |
+| Market Capitalization (Control Group) | -0.0005595158544303851 | -27.8666        | 0.0000      |
 
-#### 3.错误定价变量（Mispricing）的因果推断分析
+**Conclusion:**
 
-主要参考pdf **1、因果图基础模型** **2、变分自编码器（VAE）深度学习模型** 和 **4.3 错误定价与市值变量的因果推断 ITE（Individual Treatment Effect）**
-
-**表4 错误定价变量M与市值变量的个体处理效应ITE**
-
-M:
-
-ITE： 735671877861023
-T-statistic: 33.9656
-P-value: 0.0000
-
-市值变量（作为对照组）：
-
-ITE: -0.0005595158544303851
-T-statistic: -27.8666
-P-value: 0.0000
-
-错误定价变量的 ITE 为xxx ，显著性较高，表明错误定价对资产收益具有一定的正向因果效应。
-
-市值变量的 ITE 为xxx，表明市值对资产收益的因果效应较小。
+- The ITE of the mispricing variable is significant, indicating a positive causal effect of mispricing on asset returns.
+- The ITE of the market capitalization variable is smaller, suggesting a weaker causal effect of market capitalization on asset returns.
